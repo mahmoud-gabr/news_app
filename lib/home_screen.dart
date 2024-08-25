@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/app_theme.dart';
 import 'package:news_app/category/categories_grid.dart';
+import 'package:news_app/drawer/drawer_home.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,6 +17,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       child: Scaffold(
+        drawer: const HomeDrawer(),
         appBar: AppBar(
           title: const Text('News App'),
         ),
