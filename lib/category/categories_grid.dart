@@ -4,39 +4,43 @@ import 'package:news_app/category/category_item.dart';
 import 'package:news_app/category/category_model.dart';
 
 class CategoriesGrid extends StatelessWidget {
-  const CategoriesGrid({super.key});
-
-  get itemBuilder => null;
-
+  const CategoriesGrid({super.key, required this.onCategorySelected});
+  final void Function(CategoryModel) onCategorySelected;
   @override
   Widget build(BuildContext context) {
     const List<CategoryModel> categories = [
       CategoryModel(
+        id: 'sports',
         name: 'Sports',
         imageName: 'ball',
         color: Color(0xFFC91C22),
       ),
       CategoryModel(
+        id: 'politics',
         name: 'Politics',
         imageName: 'politics',
         color: Color(0xFF003E90),
       ),
       CategoryModel(
+        id: 'health',
         name: 'Health',
         imageName: 'health',
         color: Color(0xFFED1E79),
       ),
       CategoryModel(
+        id: 'business',
         name: 'Business',
         imageName: 'bussines',
         color: Color(0xFFCF7E48),
       ),
       CategoryModel(
+        id: 'environment',
         name: 'Environment',
         imageName: 'environment',
         color: Color(0xFF4882CF),
       ),
       CategoryModel(
+        id: 'science',
         name: 'Science',
         imageName: 'science',
         color: Color(0xFFF2D352),
@@ -58,15 +62,22 @@ class CategoriesGrid extends StatelessWidget {
           ),
           Expanded(
             child: GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 24,
                 crossAxisSpacing: 24,
               ),
-              itemBuilder: (_, index) => CategoryItem(
-                index: index,
-                category: categories[index],
-              ),
+              itemBuilder: (_, index) {
+                final category = categories[index];
+                return GestureDetector(
+                  onTap: () => onCategorySelected(category),
+                  child: CategoryItem(
+                    index: index,
+                    category: category,
+                  ),
+                );
+              },
               itemCount: categories.length,
             ),
           )

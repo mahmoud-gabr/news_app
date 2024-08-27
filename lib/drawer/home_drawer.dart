@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:news_app/app_theme.dart';
 
 class HomeDrawer extends StatelessWidget {
-  const HomeDrawer({super.key});
-
+  const HomeDrawer({super.key, required this.onItemSelected});
+  final void Function(DrawerItem) onItemSelected;
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -32,7 +32,7 @@ class HomeDrawer extends StatelessWidget {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () => onItemSelected(DrawerItem.categories),
                     child: Row(
                       children: [
                         const Icon(
@@ -57,7 +57,7 @@ class HomeDrawer extends StatelessWidget {
                     height: 16,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () => onItemSelected(DrawerItem.settings),
                     child: Row(
                       children: [
                         const Icon(
@@ -86,4 +86,9 @@ class HomeDrawer extends StatelessWidget {
       ),
     );
   }
+}
+
+enum DrawerItem {
+  settings,
+  categories;
 }
