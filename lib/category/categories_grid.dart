@@ -16,8 +16,8 @@ class CategoriesGrid extends StatelessWidget {
         color: Color(0xFFC91C22),
       ),
       CategoryModel(
-        id: 'politics',
-        name: 'Politics',
+        id: 'general',
+        name: 'General',
         imageName: 'politics',
         color: Color(0xFF003E90),
       ),
@@ -34,8 +34,8 @@ class CategoriesGrid extends StatelessWidget {
         color: Color(0xFFCF7E48),
       ),
       CategoryModel(
-        id: 'environment',
-        name: 'Environment',
+        id: 'entertainment',
+        name: 'Entertainment',
         imageName: 'environment',
         color: Color(0xFF4882CF),
       ),

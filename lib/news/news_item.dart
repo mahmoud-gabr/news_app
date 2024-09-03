@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/app_theme.dart';
+import 'package:news_app/models/news_response/article.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class NewsItem extends StatelessWidget {
-  const NewsItem({super.key});
-
+  const NewsItem({super.key, required this.news});
+  final Article news;
   @override
   Widget build(BuildContext context) {
     final titleSmallStyle = Theme.of(context).textTheme.titleSmall;
@@ -15,8 +16,9 @@ class NewsItem extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.all(Radius.circular(5)),
-            child: Image.asset(
-              'assets/images/newsTest.png',
+            child: Image.network(
+              news.urlToImage ??
+                  'http://www.palmares.lemondeduchiffre.fr/images/joomlart/demo/default.jpg',
               height: MediaQuery.of(context).size.height * .25,
               width: double.infinity,
               fit: BoxFit.fill,
@@ -26,7 +28,7 @@ class NewsItem extends StatelessWidget {
             height: 4,
           ),
           Text(
-            'BBC News',
+            news.source?.name ?? '',
             style: titleSmallStyle!.copyWith(
               fontSize: 10,
               color: AppTheme.grey,
@@ -36,7 +38,7 @@ class NewsItem extends StatelessWidget {
             height: 4,
           ),
           Text(
-            'Why are football\'s biggest clubs starting a new tournament?',
+            news.title ?? '',
             style: titleSmallStyle.copyWith(
               fontWeight: FontWeight.w500,
             ),
@@ -45,7 +47,7 @@ class NewsItem extends StatelessWidget {
             alignment: AlignmentDirectional.centerEnd,
             child: Text(
               timeago.format(
-                DateTime(2024, 8, 15),
+                news.publishedAt ?? DateTime(1),
               ),
               style: titleSmallStyle.copyWith(
                 fontSize: 13,
