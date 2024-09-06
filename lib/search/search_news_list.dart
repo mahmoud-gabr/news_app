@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/api/api_manger.dart';
+import 'package:news_app/app_theme.dart';
 import 'package:news_app/news/news_item.dart';
 import 'package:news_app/widgets/error_indicator.dart';
 import 'package:news_app/widgets/loading_indicator.dart';
 
-class NewsList extends StatelessWidget {
-  const NewsList({super.key, required this.sourceId});
-  final String sourceId;
+class SearchNewsList extends StatelessWidget {
+  const SearchNewsList({super.key, required this.searchKey});
+  final String searchKey;
   @override
   Widget build(BuildContext context) {
+    if (searchKey == '') {
+      return Center(
+        child: Text(
+          'Enter search key',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: AppTheme.black,
+              ),
+        ),
+      );
+    }
     return FutureBuilder(
-      future: ApiService.getNews(sourceId),
+      future: ApiService.getSearchedNews(searchKey),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const LoadingIndicator();
@@ -20,7 +31,7 @@ class NewsList extends StatelessWidget {
           final newsList = snapshot.data?.articles ?? [];
           return ListView.builder(
             physics: const BouncingScrollPhysics(),
-            itemBuilder: (context, index) =>  NewsItem(news: newsList[index]),
+            itemBuilder: (context, index) => NewsItem(news: newsList[index]),
             itemCount: newsList.length,
           );
         }

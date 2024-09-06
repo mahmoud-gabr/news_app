@@ -33,4 +33,18 @@ class ApiService {
     final json = jsonDecode(response.body);
     return NewsResponse.fromJson(json);
   }
+  static Future<NewsResponse> getSearchedNews(String searchFor) async{
+    final uri = Uri.https(
+      APIConstants.baseURL,
+      APIConstants.newsEndPoints,
+      {
+        'apiKey': APIConstants.apiKey,
+        'q': searchFor,
+      },
+      
+    );
+    final response = await http.get(uri);
+    final json = jsonDecode(response.body);
+    return NewsResponse.fromJson(json);
+  }
 }
