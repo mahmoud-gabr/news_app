@@ -6,6 +6,7 @@ import 'package:news_app/category/category_model.dart';
 import 'package:news_app/drawer/home_drawer.dart';
 import 'package:news_app/search/search_screen.dart';
 import 'package:news_app/settings/settings_tab.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
           onItemSelected: onDrawerItemSelected,
         ),
         appBar: AppBar(
-          title: const Text('News App'),
+          title: Text(AppLocalizations.of(context)!.newsApp),
           actions: [
             IconButton(
                 onPressed: () {
