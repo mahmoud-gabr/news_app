@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/app_theme.dart';
+import 'package:news_app/shared/app_theme.dart';
 import 'package:news_app/search/custoum_text_field.dart';
 import 'package:news_app/search/search_news_list.dart';
 

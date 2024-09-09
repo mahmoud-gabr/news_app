@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/app_theme.dart';
+import 'package:news_app/shared/app_theme.dart';
 
 class TabItem extends StatelessWidget {
   const TabItem({super.key, required this.isSelected, required this.source});

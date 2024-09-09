@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/app_theme.dart';
-import 'package:news_app/category/categories_grid.dart';
-import 'package:news_app/category/category_details.dart';
-import 'package:news_app/category/category_model.dart';
-import 'package:news_app/drawer/home_drawer.dart';
+import 'package:news_app/category/view/widgets/categories_grid.dart';
+import 'package:news_app/category/view/widgets/category_details.dart';
+import 'package:news_app/shared/app_theme.dart';
+
+import 'package:news_app/category/data/models/category_model.dart';
+import 'package:news_app/home/widgets/home_drawer.dart';
 import 'package:news_app/search/search_screen.dart';
 import 'package:news_app/settings/settings_tab.dart';
 

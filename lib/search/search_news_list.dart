@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/api/api_manger.dart';
-import 'package:news_app/app_theme.dart';
-import 'package:news_app/news/news_item.dart';
-import 'package:news_app/widgets/error_indicator.dart';
-import 'package:news_app/widgets/loading_indicator.dart';
+import 'package:news_app/news/view/widgets/news_item.dart';
+import 'package:news_app/shared/app_theme.dart';
+import 'package:news_app/shared/widgets/error_indicator.dart';
+import 'package:news_app/shared/widgets/loading_indicator.dart';
 
 class SearchNewsList extends StatelessWidget {
   const SearchNewsList({super.key, required this.searchKey});
