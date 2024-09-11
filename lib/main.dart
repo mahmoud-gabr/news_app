@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/news/view/screens/search_screen.dart';
+import 'package:news_app/settings/settings_provideer.dart';
 import 'package:news_app/shared/app_theme.dart';
 import 'package:news_app/home/screens/home_screen.dart';
 import 'package:news_app/news/view/screens/news_details_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const NewsApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => SettingsProvider(),
+      child: const NewsApp(),
+    ),
+  );
 }
 
 class NewsApp extends StatelessWidget {
@@ -17,11 +25,14 @@ class NewsApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         HomeScreen.routeName: (_) => const HomeScreen(),
-        NewsDetailsScreen.routeName:(_) => const NewsDetailsScreen(),
-        SearchScreen.routeName:(_) => const SearchScreen(),
+        NewsDetailsScreen.routeName: (_) => const NewsDetailsScreen(),
+        SearchScreen.routeName: (_) => const SearchScreen(),
       },
       theme: AppTheme.lightTheme,
       themeMode: ThemeMode.light,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: Locale(Provider.of<SettingsProvider>(context).language),
     );
   }
 }
