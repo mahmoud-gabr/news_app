@@ -8,8 +8,8 @@ import 'package:news_app/settings/settings_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(Provider(
-     create: (_) => SettingsProvider(),
+  runApp(ChangeNotifierProvider(
+    create: (context) => SettingsProvider(),
     child: const NewsApp()));
 }
 
@@ -29,7 +29,7 @@ class NewsApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: Locale( Provider.of<SettingsProvider>(context).language),
+      locale: Locale(Provider.of<SettingsProvider>(context).language),
     );
   }
 }
