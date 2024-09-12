@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SettingsProvider with ChangeNotifier {
+class SettingsViewModel with ChangeNotifier {
   String language = 'en';
-  SettingsProvider() {
+  SettingsViewModel() {
     loadSettings();
   }
   Future<void> saveSettings() async {

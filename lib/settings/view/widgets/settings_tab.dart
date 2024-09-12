@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/settings/settings_provideer.dart';
+import 'package:news_app/settings/view_model/settings_view_model.dart';
 import 'package:news_app/shared/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -9,7 +9,7 @@ class SettingsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
+    SettingsViewModel settingsProvider = Provider.of<SettingsViewModel>(context);
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Column(

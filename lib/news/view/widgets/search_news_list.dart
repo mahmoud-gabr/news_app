@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/api/api_manger.dart';
 import 'package:news_app/news/view/widgets/news_item.dart';
+import 'package:news_app/news/view_model/searched_news_view_model.dart';
 import 'package:news_app/shared/app_theme.dart';
 import 'package:news_app/shared/widgets/error_indicator.dart';
 import 'package:news_app/shared/widgets/loading_indicator.dart';
+import 'package:provider/provider.dart';
 
-class SearchNewsList extends StatelessWidget {
+class SearchNewsList extends StatefulWidget {
   const SearchNewsList({super.key, required this.searchKey});
   final String searchKey;
+
+  @override
+  State<SearchNewsList> createState() => _SearchNewsListState();
+}
+
+class _SearchNewsListState extends State<SearchNewsList> {
+  final viewModel = SearchedNewsViewModel();
   @override
   Widget build(BuildContext context) {
-    if (searchKey == '') {
+    if (widget.searchKey == '') {
       return Center(
         child: Text(
           'Enter search key',
@@ -20,22 +28,24 @@ class SearchNewsList extends StatelessWidget {
         ),
       );
     }
-    return FutureBuilder(
-      future: ApiService.getSearchedNews(searchKey),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const LoadingIndicator();
-        } else if (snapshot.hasError || snapshot.data?.status != 'ok') {
-          return const ErrorIndicator();
-        } else {
-          final newsList = snapshot.data?.articles ?? [];
-          return ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemBuilder: (context, index) => NewsItem(news: newsList[index]),
-            itemCount: newsList.length,
-          );
-        }
-      },
+    return ChangeNotifierProvider(
+      create: (_) => SearchedNewsViewModel(),
+      child: Consumer<SearchedNewsViewModel>(
+        builder: (_, viewModel, __) {
+          if (viewModel.isLoading) {
+            return const LoadingIndicator();
+          } else if (viewModel.errorMessage != null) {
+            return const ErrorIndicator();
+          } else {
+            return ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (context, index) =>
+                  NewsItem(news: viewModel.articlesList[index]),
+              itemCount: viewModel.articlesList.length,
+            );
+          }
+        },
+      ),
     );
   }
 }

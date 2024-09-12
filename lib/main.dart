@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/news/view/screens/search_screen.dart';
-import 'package:news_app/settings/settings_provideer.dart';
+import 'package:news_app/settings/view_model/settings_view_model.dart';
 import 'package:news_app/shared/app_theme.dart';
 import 'package:news_app/home/screens/home_screen.dart';
 import 'package:news_app/news/view/screens/news_details_screen.dart';
@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (context) => SettingsProvider(),
+      create: (context) => SettingsViewModel(),
       child: const NewsApp(),
     ),
   );
@@ -32,7 +32,7 @@ class NewsApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: Locale(Provider.of<SettingsProvider>(context).language),
+      locale: Locale(Provider.of<SettingsViewModel>(context).language),
     );
   }
 }
