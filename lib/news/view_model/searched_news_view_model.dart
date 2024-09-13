@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/news/data/data_source/searched_news_data_dource.dart';
 import 'package:news_app/news/data/models/article.dart';
+import 'package:news_app/news/data/repo/news_repo.dart';
+import 'package:news_app/service_locator.dart';
 
 class SearchedNewsViewModel with ChangeNotifier {
-  final dataSource = SearchedNewsDataSource();
+  final NewsRepo repo;
+  SearchedNewsViewModel()
+      : repo = NewsRepo(dataSource: ServiceLocator.searchedNewsDataSource);
   List<Article> articlesList = [];
   String? errorMessage;
   bool isLoading = false;
@@ -11,12 +14,7 @@ class SearchedNewsViewModel with ChangeNotifier {
     isLoading = true;
     notifyListeners();
     try {
-      final response = await dataSource.getSearchedNews(searchKey);
-      if (response.status == 'ok' && response.articles != null) {
-        articlesList = response.articles!;
-      } else {
-        errorMessage = 'failed to get news';
-      }
+      articlesList = await repo.getNews(searchKey);
     } catch (error) {
       errorMessage = error.toString();
     }

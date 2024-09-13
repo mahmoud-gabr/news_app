@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/news/data/models/article.dart';
 import 'package:news_app/shared/app_theme.dart';
 
 import 'package:news_app/news/view/screens/news_details_screen.dart';
+import 'package:news_app/shared/widgets/loading_indicator.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class NewsItem extends StatelessWidget {
@@ -25,9 +27,11 @@ class NewsItem extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(5)),
-              child: Image.network(
-                news.urlToImage ??
-                    'http://www.palmares.lemondeduchiffre.fr/images/joomlart/demo/default.jpg',
+              child: CachedNetworkImage(
+                imageUrl: news.urlToImage ?? '',
+                placeholder: (_, __) => const LoadingIndicator(),
+                errorWidget: (_, __, ___) =>
+                    const Icon(Icons.image_not_supported_outlined),
                 height: MediaQuery.of(context).size.height * .25,
                 width: double.infinity,
                 fit: BoxFit.fill,
