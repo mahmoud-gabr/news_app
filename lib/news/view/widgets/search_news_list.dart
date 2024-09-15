@@ -18,34 +18,36 @@ class _SearchNewsListState extends State<SearchNewsList> {
   final viewModel = SearchedNewsViewModel();
   @override
   Widget build(BuildContext context) {
-    if (widget.searchKey == '') {
-      return Center(
-        child: Text(
-          'Enter search key',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: AppTheme.black,
-              ),
-        ),
-      );
+    if (widget.searchKey.isNotEmpty) {
+      viewModel.getSearchedNews(widget.searchKey);
     }
     return ChangeNotifierProvider(
-      create: (_) => SearchedNewsViewModel(),
-      child: Consumer<SearchedNewsViewModel>(
-        builder: (_, viewModel, __) {
-          if (viewModel.isLoading) {
-            return const LoadingIndicator();
-          } else if (viewModel.errorMessage != null) {
-            return const ErrorIndicator();
-          } else {
-            return ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) =>
-                  NewsItem(news: viewModel.articlesList[index]),
-              itemCount: viewModel.articlesList.length,
-            );
-          }
-        },
-      ),
+      create: (_) => viewModel,
+      child: widget.searchKey.isEmpty
+          ? Center(
+              child: Text(
+                'Enter search key',
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: AppTheme.black,
+                    ),
+              ),
+            )
+          : Consumer<SearchedNewsViewModel>(
+              builder: (_, viewModel, __) {
+                if (viewModel.isLoading) {
+                  return const LoadingIndicator();
+                } else if (viewModel.errorMessage != null) {
+                  return const ErrorIndicator();
+                } else {
+                  return ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) =>
+                        NewsItem(news: viewModel.articlesList[index]),
+                    itemCount: viewModel.articlesList.length,
+                  );
+                }
+              },
+            ),
     );
   }
 }
